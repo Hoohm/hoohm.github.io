@@ -28,12 +28,13 @@ I went for two variables:
 
 Here is the finished example:
 
-![Coding-skills](images/coding_skills.png){:class="img-responsive"}
+![Coding-skills](/images/coding_skills.png){:class="img-responsive"}
 
 The code
 -----------------------
 
 To get this you will need a csv input file as shown bellow:
+
 ```
 Language,Started,Frequency
 Python,2012,Daily
@@ -49,17 +50,20 @@ First column is the language you want to show, second is the year you started us
 Then we can run the code shown bellow:
 
 First load up needed packages
+
 ```
 library(ggplot2)
 library(dplyr)
 ```
 Read in the data and format the factors properly
+
 ```
 languages = read.csv("input_file.csv", stringsAsFactors = FALSE)
 languages$Language = factor(languages$Language, levels = languages$Language)
 languages$Frequency = factor(languages$Frequency, levels=c('Daily', 'Weekly', 'Monthly'))
 ```
 Use the current year to create the `Year_of_experience` variable
+
 ```
 current_year = as.integer(format(Sys.Date(), "%Y"))
 
@@ -68,6 +72,7 @@ languages = languages %>%
 ```
 
 Finally create and save the plot. I specifically used color and shape for the language variable because sometimes CV's will be printed in black and white.
+
 ```
 p = ggplot(languages, aes(x=Frequency, y=Years_of_experience, color=Language, shape=Language,fill=Language))
 p = p +  scale_shape_manual(values=c(20:25,10))
